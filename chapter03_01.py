@@ -97,3 +97,88 @@ print('EX4-5 -', [id(i) for i in marks1])
 print('EX4-6 -', [id(i) for i in marks2])
 
 # Tuple Advanced
+
+# Packing & Unpacking
+a, b = divmod(100, 9) # a->몫, b->나머지
+print(a, b)
+
+print('EX5-1 -', divmod(100, 9))
+print('EX5-2 -', divmod(*(100, 9)))
+print('EX5-3 -', *(divmod(100, 9)))
+
+print()
+
+x, y, *rest = range(10)
+print('EX5-4 -', x, y, rest) # 0 1 [2, 3, 4, 5, 6, 7, 8, 9]
+print(type(rest)) # 이 경우의 rest의 타입은 list이다.
+
+x, y, *rest = range(2)
+print('EX5-5 -', x, y, rest) # 0 1 [] 
+print(type(rest))
+
+x, y, *rest = 1, 2, 3, 4, 5
+print('EX5-6 -', x, y, rest) # 1 2 [3, 4, 5]
+print(type(rest))
+
+print()
+print()
+
+# Mutable(가변) vs Immutable(불변)
+
+l = (10, 15, 20)
+m = [10, 15, 20]
+
+print('EX6-1 -', l, m, id(l), id(m))
+
+l = l * 2 # 새로운 객체 생성
+m = m * 2 # 새로운 객체 생성
+
+print('EX6-2 -', l, m, id(l), id(m))
+
+l *= 2 # 새로운 객체 생성
+m *= 2 # 리스트인경우 복합대입연산자를 사용하면 자기 자신한테 재할당을 한다. 즉, ID값이 변하지 않는다. -> 자기 자신을 수정하다.
+
+# 자기 자체에서 재할당이 이루어지는 것과, 새로운 객체를 생성한다는 개념을 잘 알아야한다.
+# 새로운 객체를 생성한다는 것은 그만큼 메모리 사용량이나, 리소스를 잡아 먹는다는 의미이다.
+
+print('EX6-3 -', l, m, id(l), id(m))
+
+print()
+
+# sort vs sorted
+# 옵션 : reverse, key=len, key=str.lower, key=str.upper, key=func
+# 정렬은 정말 중요하다.
+# 알고리즘 시험에서도 정렬은 반드시 정복해야 한다.
+
+f_list = ['orange', 'apple', 'mango', 'papaya', 'lemon', 'strawberry', 'coconut']
+
+# sorted : 정렬 후 '새로운' 객체 반환 -> 원본은 변경되지 않는다.
+
+test = sorted(f_list)
+print(test)
+print(f_list)
+
+print('EX7-1 -', sorted(f_list))
+print('EX7-2 -', sorted(f_list, reverse=True))
+print('EX7-3 -', sorted(f_list, key=len))
+print('EX7-4 -', sorted(f_list, key=str.lower))
+print('EX7-5 -', sorted(f_list, key=str.upper))
+print('EX7-6 -', sorted(f_list, key=lambda x : x[-1])) # 단어의 끝 글자를 기준으로 정렬
+print('EX7-7 -', sorted(f_list, key=lambda x : x[-1], reverse=True))
+
+print('EX7-6 -', f_list)
+
+print()
+
+# sort : 정렬 후 객체 직접 변경
+# 반환 값 확인 : None을 리턴하면 반환값이 없다라는 의미이다.
+# 만약에 어떤 함수가 None을 반환했다면, 이 함수는 객체를 직접 변경하는 함수라고 어느정도는 추측할 수 있다.
+
+a = f_list.sort()
+print(a, f_list)
+
+print('EX7-7 -', f_list.sort(), f_list)
+print('EX7-8 -', f_list.sort(reverse=True), f_list)
+print('EX7-9 -', f_list.sort(key=len), f_list)
+print('EX7-10 -', f_list.sort(key=lambda x : x[-1]), f_list)
+print('EX7-11 -', f_list.sort(key=lambda x : x[-1], reverse=True), f_list)
