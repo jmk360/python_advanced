@@ -108,3 +108,118 @@ print('EX3-8 -', next(wt))
 
 print()
 print()
+
+# Generator 예제1
+
+def generator_ex1():
+    print('start!')
+    yield 'AAA'
+    print('continue')
+    yield 'BBB'
+    print('end')
+
+temp = iter(generator_ex1())
+
+print('EX4-1 -', next(temp))
+print('EX4-2 -', next(temp))
+# print('EX4-2-1 -', next(temp)) # StopIteration 발생된다.
+
+print()
+
+for v in generator_ex1():
+    print('EX4-3 -', v)
+
+print()
+
+# Generator 예제2
+
+temp2 = [x * 3 for x in generator_ex1()]
+temp3 = (x * 3 for x in generator_ex1()) # 제너레이터를 많이 사용하는 것을 권장한다.
+
+print('EX5-1 -', temp2)
+print('EX5-2 -', temp3) # 제네레이터 반환
+
+print()
+
+for i in temp2:
+    print('EX5-3 -', i)
+
+print()
+
+for i in temp3:
+    print('EX5-4 -', i)
+
+print()
+print()
+
+# Generator 예제3(자주 사용하는 함수)
+
+import itertools
+
+gen1 = itertools.count(1, 2.5)
+
+print('EX6-1 -', next(gen1))
+print('EX6-1 -', next(gen1))
+print('EX6-1 -', next(gen1))
+print('EX6-1 -', next(gen1))
+# ... 무한
+
+print()
+
+# 조건
+gen2 = itertools.takewhile(lambda n : n < 1000, itertools.count(1, 2.5)) # 이런거 사용하는게 좋다.
+
+for v in gen2:
+    print('EX6-5 -', v)
+
+print()
+
+# 필터 반대
+gen3 = itertools.filterfalse(lambda n : n < 3, [1, 2, 3, 4, 5])
+
+for v in gen3:
+    print('EX6-6 -', v) # 3, 4, 5
+
+print()
+
+# 누적 합계
+gen4 = itertools.accumulate([x for x in range(1, 101)])
+
+for v in gen4:
+    print('EX6-7 -', v)
+
+print()
+
+# 연결1
+
+gen5 = itertools.chain('ABCDE', range(1,11,2))
+print('EX6-8 -', list(gen5))
+
+print()
+
+# 연결2
+
+gen6 = itertools.chain(enumerate('ABCDE'))
+print('EX6-9 -', list(gen6)) # [(0, 'A'), (1, 'B'), (2, 'C'), (3, 'D'), (4, 'E')]
+
+print()
+
+# 개별
+gen7 = itertools.product('ABCDE')
+print('EX6-10 -', list(gen7)) # [('A',), ('B',), ('C',), ('D',), ('E',)]
+
+print()
+
+# 연산(경우의 수)
+gen8 = itertools.product('ABCDE', repeat=2) # 'ABCDE'의 원소를 가지고 만들수 있는 원소 2개짜리를 갖는 제너레이터이다.
+print('EX6-11 -', list(gen8))
+
+print()
+
+# 그룹화
+gen9 = itertools.groupby('AAABBCCCCDDEEE')
+
+# print('EX6-12 -', list(gen9))
+
+for chr, group in gen9:
+    print('EX6-12 -', chr, ' : ', list(group))
